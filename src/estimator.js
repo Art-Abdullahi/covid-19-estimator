@@ -21,7 +21,7 @@ const covid19ImpactEstimator = () => {
       hospitalBedsByRequestedTime: 0,
       casesForICUByRequestedTime: 0,
       casesForVentilatorsByRequestedTime: 0,
-      dollarsInFlight: 0,
+      dollarsInFlight: 0
     },
     severeImpact: {
       currentlyAffected: data.reportCases * 50,
@@ -30,8 +30,8 @@ const covid19ImpactEstimator = () => {
       hospitalBedsByRequestedTime: 0,
       casesForICUByRequestedTime: 0,
       casesForVentilatorsByRequestedTime: 0,
-      dollarsInFlight: 0,
-    },
+      dollarsInFlight: 0
+    }
   };
 
   estimate.impact.infectionsByRequestedTime = estimate.impact.currentlyAffected
@@ -40,10 +40,10 @@ const covid19ImpactEstimator = () => {
     * (2 ** Math.round(NumberOfDays / 3));
   estimate.impact.severeCasesByRequestedTime = (15 / 100)
     * estimate.impact.infectionsByRequestedTime;
-  severeImpact.severeCasesByRequestedTime = (15 / 100)
+  estimate.severeImpact.severeCasesByRequestedTime = (15 / 100)
     * estimate.severeImpact.infectionsByRequestedTime;
   estimate.impact.hospitalBedsByRequestedTime = data.totalHospitalBeds
-    * Math.round(35 / 100 - impact.severeCasesByRequestedTime);
+    * Math.round(35 / 100 - estimate.impact.severeCasesByRequestedTime);
   estimate.severeImpact.hospitalBedsByRequestedTime = data.totalHospitalBeds
     * Math.round(35 / 100 - estimate.severeImpact.severeCasesByRequestedTime);
   estimate.impact.casesForICUByRequestedTime = (5 / 100)
