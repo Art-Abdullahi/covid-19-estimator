@@ -1,5 +1,5 @@
 const covid19ImpactEstimator = () => {
-  let data = {
+  const data = {
     region: {
       name: 'Africa',
       avgAge: 19.7,
@@ -34,16 +34,16 @@ const covid19ImpactEstimator = () => {
 
   impact.infectionsByRequestedTime = impact.currentlyAffected
     * (2 ** Math.round(NumberOfDays / 3));
-  severeImpact.infectionsByRequestedTime = severeImpact.currentlyAffected *
-    (2 ** Math.round(NumberOfDays / 3));
-  impact.severeCasesByRequestedTime = (15 / 100) *
-    impact.infectionsByRequestedTime;
-  severeImpact.severeCasesByRequestedTime = (15 / 100) *
-    severeImpact.infectionsByRequestedTime;
-  impact.hospitalBedsByRequestedTime = data.totalHospitalBeds *
-    Math.round(35 / 100 - impact.severeCasesByRequestedTime);
-  severeImpact.hospitalBedsByRequestedTime = data.totalHospitalBeds *
-    Math.round(35 / 100 - severeImpact.severeCasesByRequestedTime);
+  severeImpact.infectionsByRequestedTime = severeImpact.currentlyAffected
+    * (2 ** Math.round(NumberOfDays / 3));
+  impact.severeCasesByRequestedTime = (15 / 100)
+    * impact.infectionsByRequestedTime;
+  severeImpact.severeCasesByRequestedTime = (15 / 100)
+    * severeImpact.infectionsByRequestedTime;
+  impact.hospitalBedsByRequestedTime = data.totalHospitalBeds
+    * Math.round(35 / 100 - impact.severeCasesByRequestedTime);
+  severeImpact.hospitalBedsByRequestedTime = data.totalHospitalBeds
+    * Math.round(35 / 100 - severeImpact.severeCasesByRequestedTime);
   impact.casesForICUByRequestedTime = (5 / 100)
     * impact.infectionsByRequestedTime;
   severeImpact.casesForICUByRequestedTime = (5 / 100)
