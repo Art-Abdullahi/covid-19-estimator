@@ -1,3 +1,4 @@
+const covid19ImpactEstimator = (data) => data;
 data = {
   region: {
     name: 'Africa',
@@ -15,7 +16,7 @@ const covid19ImpactEstimator = (data) => {
   const input = data;
 
   //challenge one
-  const impact = {
+  let impact = {
     currentlyAffected: data.reportCases * 10,
     infectionsByRequestedTime: 0,
     severeCasesByRequestedTime: 0,
@@ -24,7 +25,7 @@ const covid19ImpactEstimator = (data) => {
     casesForVentilatorsByRequestedTime: 0,
     dollarsInFlight: 0
   };
-  const severeImpact = {
+  let severeImpact = {
     currentlyAffected: data.reportCases * 50,
     infectionsByRequestedTime: 0,
     severeCasesByRequestedTime: 0,
