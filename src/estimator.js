@@ -12,7 +12,11 @@ const covid19ImpactEstimator = () => {
     population: 66622705,
     totalHospitalBeds: 1380614
   };
-  const NumberOfDays = data.timeToElapse;
+  function getProjectedInfections(duration, currentlyAffected) {
+    const factor = Math.floor(duration / 3)
+    return currentlyAffected * 2 ** factor
+  }
+  const NumberOfDays = 28;
   const estimate = {
     impact: {
       currentlyAffected: data.reportCases * 10,
@@ -34,10 +38,8 @@ const covid19ImpactEstimator = () => {
     }
   };
 
-  estimate.impact.infectionsByRequestedTime = estimate.impact.currentlyAffected
-    * (2 ** Math.round(NumberOfDays / 3));
-  estimate.severeImpact.infectionsByRequestedTime = estimate.severeImpact.currentlyAffected
-    * (2 ** Math.round(NumberOfDays / 3));
+  estimate.impact.infectionsByRequestedTime = getProjectedInfections(28, estimate.impact.currentlyAffected)
+  estimate.severeImpact.infectionsByRequestedTime = getProjectedInfections(28, estimate.severeImpact.currentlyAffected)
   estimate.impact.severeCasesByRequestedTime = (15 / 100)
     * estimate.impact.infectionsByRequestedTime;
   estimate.severeImpact.severeCasesByRequestedTime = (15 / 100)
