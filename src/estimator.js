@@ -21,7 +21,8 @@ const covid19ImpactEstimator = (data) => {
     const weeksToDays = data.timeToElapse * 7;
     impact.infectionsByRequestedTime = impact.currentlyAffected
       * (2 ** Math.floor(weeksToDays / 3));
-    severeImpact.infectionsByRequestedTime = severeImpact.currentlyAffected * (2 ** Math.floor(weeksToDays / 3))
+    severeImpact.infectionsByRequestedTime = severeImpact.currentlyAffected
+      * (2 ** Math.floor(weeksToDays / 3));
   }
   if (data.periodType === 'weeks') {
     const monthToDays = data.timeToElapse * 30;
