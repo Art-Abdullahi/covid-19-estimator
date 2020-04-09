@@ -15,7 +15,7 @@ const covid19ImpactEstimator = (data) => {
   const input = data;
 
   //challenge one
-  let impact = {
+  const impact = {
     currentlyAffected: data.reportCases * 10,
     infectionsByRequestedTime: 0,
     severeCasesByRequestedTime: 0,
@@ -24,7 +24,7 @@ const covid19ImpactEstimator = (data) => {
     casesForVentilatorsByRequestedTime: 0,
     dollarsInFlight: 0
   };
-  let severeImpact = {
+  const severeImpact = {
     currentlyAffected: data.reportCases * 50,
     infectionsByRequestedTime: 0,
     severeCasesByRequestedTime: 0,
