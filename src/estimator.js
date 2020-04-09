@@ -37,11 +37,10 @@ const covid19ImpactEstimator = () => {
       dollarsInFlight: 0
     }
   };
-
-  estimate.impact.infectionsByRequestedTime = getProjectedInfections
-    (28, estimate.impact.currentlyAffected);
-  estimate.severeImpact.infectionsByRequestedTime = getProjectedInfections
-    (28, estimate.severeImpact.currentlyAffected);
+  estimate.impact.infectionsByRequestedTime = getProjectedInfections(28,
+    estimate.impact.currentlyAffected);
+  estimate.severeImpact.infectionsByRequestedTime = getProjectedInfections(28,
+    estimate.severeImpact.currentlyAffected);
   estimate.impact.severeCasesByRequestedTime = (15 / 100)
     * estimate.impact.infectionsByRequestedTime;
   estimate.severeImpact.severeCasesByRequestedTime = (15 / 100)
