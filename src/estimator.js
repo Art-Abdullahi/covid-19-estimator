@@ -1,59 +1,28 @@
 const covid19ImpactEstimator = (data) => {
   const input = data;
-  const impact = {
-    currentlyAffected: data.reportedCases * 10,
-    infectionsByRequestedTime: 0,
-    severeCasesByRequestedTime: 0,
-    hospitalBedsByRequestedTime: 0,
-    casesForICUByRequestedTime: 0,
-    casesForVentilatorsByRequestedTime: 0,
-    dollarsInFlight: 0
-  };
-  const severeImpact = {
-    currentlyAffected: data.reportedCases * 50,
-    infectionsByRequestedTime: 0,
-    severeCasesByRequestedTime: 0,
-    hospitalBedsByRequestedTime: 0,
-    casesForICUByRequestedTime: 0,
-    casesForVentilatorsByRequestedTime: 0,
-    dollarsInFlight: 0
-  };
-  const inbrt = () => {
-    switch (data.periodType) {
-      case 'days':
-        const factor = Math.floor(data.timeToElapse / 3);
-        impact.infectionsByRequestedTime = impact.currentlyAffected
-          * (2 ** factor);
-        severeImpact.infectionsByRequestedTime = severeImpact.currentlyAffected
-          * (2 ** factor);
-        break;
-      case 'months':
-        const newTime = data.timeToElapse * 30;
-        const factor2 = Math.floor(newTime / 3);
-        impact.infectionsByRequestedTime = impact.currentlyAffected
-          * (2 ** factor2);
-        severeImpact.infectionsByRequestedTime = severeImpact.currentlyAffected
-          * (2 ** factor2);
-        break;
-      case 'weeks':
-        const inWeek = data.timeToElapse * 7;
-        const factor3 = Math.floor(inWeek / 3);
-        impact.infectionsByRequestedTime = impact.currentlyAffected
-          * (2 ** factor3);
-        severeImpact.infectionsByRequestedTime = severeImpact.currentlyAffected
-          * (2 ** factor3);
-        break;
-      default:
-        break;
-    }
-    return inbrt();
-  };
-
+  const impactCurrentlyAffected = data.reportedCases * 10;
+  const severImpactCurrentlyAffected = data.reportedCases * 50;
+  let impactInRT;
+  let severeImpactInRT;
+  if (data.periodType === 'days') {
+    impactInRT = impactCurrentlyAffected * (2 ** Math.floor(data.timeToElapse / 3));
+    severeImpactInRT = severImpactCurrentlyAffected * (2 ** Math.floor(data.timeToElapse / 3));
+  }
+  if (data.periodType === 'weeks') {
+    const week2Days = data.timeToElapse * 7
+    impactInRT = impactCurrentlyAffected * (2 ** Math.floor(week2Days / 3));
+    severeImpactInRT = severImpactCurrentlyAffected * (2 ** Math.floor(week2Days / 3));
+  }
+  if (data.periodType === 'months') {
+    const month2Days = data.timeToElapse * 30
+    impactInRT = impactCurrentlyAffected * (2 ** Math.floor(month2Days / 3));
+    severeImpactInRT = severImpactCurrentlyAffected * (2 ** Math.floor(month2Days / 3));
+  }
   return {
     data: input,
     impact: {
-      currentlyAffected: data.reportedCases * 50,
-      infectionsByRequestedTime: impact.infectionsByRequestedTime,
+      currentlyAffected: impactCurrentlyAffected,
+      infectionsByRequestedTime: severeImpactInRT,
       severeCasesByRequestedTime: 0,
       hospitalBedsByRequestedTime: 0,
       casesForICUByRequestedTime: 0,
@@ -61,7 +30,7 @@ const covid19ImpactEstimator = (data) => {
       dollarsInFlight: 0
     },
     severeImpact: {
-      currentlyAffected: data.reportedCases * 50,
+      currentlyAffected: severImpactCurrentlyAffected,
       infectionsByRequestedTime: severeImpact.infectionsByRequestedTime,
       severeCasesByRequestedTime: 0,
       hospitalBedsByRequestedTime: 0,
