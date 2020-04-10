@@ -21,6 +21,7 @@ const covid19ImpactEstimator = (data) => {
   const inbrt = () => {
     switch (data.periodType) {
       case 'days':
+        const factor = Math.floor(data.timeToElapse / 3);
         impact.infectionsByRequestedTime = impact.currentlyAffected
           * (2 ** factor);
         severeImpact.infectionsByRequestedTime = severeImpact.currentlyAffected
@@ -28,19 +29,19 @@ const covid19ImpactEstimator = (data) => {
         break;
       case 'months':
         const newTime = data.timeToElapse * 30;
-        const factor = Math.floor(newTime / 3);
+        const factor2 = Math.floor(newTime / 3);
         impact.infectionsByRequestedTime = impact.currentlyAffected
-          * (2 ** factor);
+          * (2 ** factor2);
         severeImpact.infectionsByRequestedTime = severeImpact.currentlyAffected
-          * (2 ** factor);
+          * (2 ** factor2);
         break;
       case 'weeks':
         const inWeek = data.timeToElapse * 7;
-        const factor = Math.floor(inWeek / 3);
+        const factor3 = Math.floor(inWeek / 3);
         impact.infectionsByRequestedTime = impact.currentlyAffected
-          * (2 ** factor);
+          * (2 ** factor3);
         severeImpact.infectionsByRequestedTime = severeImpact.currentlyAffected
-          * (2 ** factor);
+          * (2 ** factor3);
         break;
       default:
         break;
