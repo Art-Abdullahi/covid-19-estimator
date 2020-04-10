@@ -2,7 +2,7 @@ const covid19ImpactEstimator = (data) => {
   const input = data;
   const impact = {
     currentlyAffected: data.reportedCases * 10,
-    infectionsByRequiredTime: 0,
+    infectionsByRequestedTime: 0,
     severeCasesByRequestedTime: 0,
     hospitalBedsByRequestedTime: 0,
     casesForICUByRequestedTime: 0,
@@ -11,7 +11,7 @@ const covid19ImpactEstimator = (data) => {
   };
   const severeImpact = {
     currentlyAffected: data.reportedCases * 50,
-    infectionsByRequiredTime: 0,
+    infectionsByRequestedTime: 0,
     severeCasesByRequestedTime: 0,
     hospitalBedsByRequestedTime: 0,
     casesForICUByRequestedTime: 0,
@@ -21,9 +21,9 @@ const covid19ImpactEstimator = (data) => {
   const getInfectionsByRequestedTime = () => {
     const inDay = () => {
       const factor = Math.floor(data.timeToElapse / 3);
-      impact.infectionsByRequiredTime = impact.currentlyAffected
+      impact.infectionsByRequestedTime = impact.currentlyAffected
         * (2 ** factor);
-      severeImpact.infectionsByRequiredTime = severeImpact.currentlyAffected
+      severeImpact.infectionsByRequestedTime = severeImpact.currentlyAffected
         * (2 ** factor);
       return {
         impact, severeImpact
@@ -32,9 +32,9 @@ const covid19ImpactEstimator = (data) => {
     const inMonth = () => {
       const newTime = data.timeToElapse * 30;
       const factor = Math.floor(newTime / 3);
-      impact.infectionsByRequiredTime = impact.currentlyAffected
+      impact.infectionsByRequestedTime = impact.currentlyAffected
         * (2 ** factor);
-      severeImpact.infectionsByRequiredTime = severeImpact.currentlyAffected
+      severeImpact.infectionsByRequestedTime = severeImpact.currentlyAffected
         * (2 ** factor);
       return {
         impact, severeImpact
@@ -43,9 +43,9 @@ const covid19ImpactEstimator = (data) => {
     const inWeeks = () => {
       const inWeek = data.timeToElapse * 7;
       const factor = Math.floor(inWeek / 3);
-      impact.infectionsByRequiredTime = impact.currentlyAffected
+      impact.infectionsByRequestedTime = impact.currentlyAffected
         * (2 ** factor);
-      severeImpact.infectionsByRequiredTime = severeImpact.currentlyAffected
+      severeImpact.infectionsByRequestedTime = severeImpact.currentlyAffected
         * (2 ** factor);
       return {
         impact, severeImpact
