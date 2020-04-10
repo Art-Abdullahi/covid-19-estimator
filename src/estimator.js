@@ -9,12 +9,12 @@ const covid19ImpactEstimator = (data) => {
     severeImpactInRT = severImpactCurrentlyAffected * (2 ** Math.floor(data.timeToElapse / 3));
   }
   if (data.periodType === 'weeks') {
-    const week2Days = data.timeToElapse * 7
+    const week2Days = data.timeToElapse * 7;
     impactInRT = impactCurrentlyAffected * (2 ** Math.floor(week2Days / 3));
     severeImpactInRT = severImpactCurrentlyAffected * (2 ** Math.floor(week2Days / 3));
   }
   if (data.periodType === 'months') {
-    const month2Days = data.timeToElapse * 30
+    const month2Days = data.timeToElapse * 30;
     impactInRT = impactCurrentlyAffected * (2 ** Math.floor(month2Days / 3));
     severeImpactInRT = severImpactCurrentlyAffected * (2 ** Math.floor(month2Days / 3));
   }
@@ -22,7 +22,7 @@ const covid19ImpactEstimator = (data) => {
     data: input,
     impact: {
       currentlyAffected: impactCurrentlyAffected,
-      infectionsByRequestedTime: severeImpactInRT,
+      infectionsByRequestedTime: impactInRT,
       severeCasesByRequestedTime: 0,
       hospitalBedsByRequestedTime: 0,
       casesForICUByRequestedTime: 0,
@@ -31,7 +31,7 @@ const covid19ImpactEstimator = (data) => {
     },
     severeImpact: {
       currentlyAffected: severImpactCurrentlyAffected,
-      infectionsByRequestedTime: severeImpact.infectionsByRequestedTime,
+      infectionsByRequestedTime: severeImpactInRT,
       severeCasesByRequestedTime: 0,
       hospitalBedsByRequestedTime: 0,
       casesForICUByRequestedTime: 0,
