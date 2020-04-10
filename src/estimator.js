@@ -18,59 +18,36 @@ const covid19ImpactEstimator = (data) => {
     casesForVentilatorsByRequestedTime: 0,
     dollarsInFlight: 0
   };
-
-  const getInfectionsByRequestedTime = () => {
-    const inDay = () => {
-      const factor = Math.floor(data.timeToElapse / 3);
-      impact.infectionsByRequestedTime = impact.currentlyAffected
-        * (2 ** factor);
-      severeImpact.infectionsByRequestedTime = severeImpact.currentlyAffected
-        * (2 ** factor);
-      return {
-        impact, severeImpact
-      };
-    };
-    const inMonth = () => {
-      const newTime = data.timeToElapse * 30;
-      const factor = Math.floor(newTime / 3);
-      impact.infectionsByRequestedTime = impact.currentlyAffected
-        * (2 ** factor);
-      severeImpact.infectionsByRequestedTime = severeImpact.currentlyAffected
-        * (2 ** factor);
-      return {
-        impact, severeImpact
-      };
-    };
-    const inWeeks = () => {
-      const inWeek = data.timeToElapse * 7;
-      const factor = Math.floor(inWeek / 3);
-      impact.infectionsByRequestedTime = impact.currentlyAffected
-        * (2 ** factor);
-      severeImpact.infectionsByRequestedTime = severeImpact.currentlyAffected
-        * (2 ** factor);
-      return {
-        impact, severeImpact
-      };
-    };
-
-    const inbrt = () => {
-      switch (data.periodType) {
-        case 'days':
-          inDay();
-          break;
-        case 'months':
-          inMonth();
-          break;
-        case 'weeks':
-          inWeeks();
-          break;
-        default:
-          break;
-      }
-    };
-    return inbrt(data);
+  const inbrt = () => {
+    switch (data.periodType) {
+      case 'days':
+        impact.infectionsByRequestedTime = impact.currentlyAffected
+          * (2 ** factor);
+        severeImpact.infectionsByRequestedTime = severeImpact.currentlyAffected
+          * (2 ** factor);
+        break;
+      case 'months':
+        const newTime = data.timeToElapse * 30;
+        const factor = Math.floor(newTime / 3);
+        impact.infectionsByRequestedTime = impact.currentlyAffected
+          * (2 ** factor);
+        severeImpact.infectionsByRequestedTime = severeImpact.currentlyAffected
+          * (2 ** factor);
+        break;
+      case 'weeks':
+        const inWeek = data.timeToElapse * 7;
+        const factor = Math.floor(inWeek / 3);
+        impact.infectionsByRequestedTime = impact.currentlyAffected
+          * (2 ** factor);
+        severeImpact.infectionsByRequestedTime = severeImpact.currentlyAffected
+          * (2 ** factor);
+        break;
+      default:
+        break;
+    }
+    return inbrt();
   };
-  getInfectionsByRequestedTime(data);
+
   return {
     data: input,
     impact: {
