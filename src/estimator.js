@@ -55,13 +55,13 @@ const covid19ImpactEstimator = (data) => {
     const inbrt = () => {
       switch (data.periodType) {
         case 'days':
-          inDay(data);
+          inDay();
           break;
         case 'months':
-          inMonth(data);
+          inMonth();
           break;
         case 'weeks':
-          inWeeks(data);
+          inWeeks();
           break;
         default:
           break;
