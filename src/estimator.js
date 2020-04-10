@@ -52,7 +52,7 @@ const covid19ImpactEstimator = (data) => {
       };
     };
 
-    const inbrt = (data) => {
+    const inbrt = () => {
       switch (data.periodType) {
         case 'days':
           inDay(data);
