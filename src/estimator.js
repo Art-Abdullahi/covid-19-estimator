@@ -1,4 +1,3 @@
-
 const covid19ImpactEstimator = (data) => {
   const input = data;
   const impactCI = data.reportedCases * 10;
