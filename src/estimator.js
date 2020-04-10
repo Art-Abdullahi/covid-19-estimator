@@ -18,8 +18,8 @@ const covid19ImpactEstimator = (data) => {
     casesForVentilatorsByRequestedTime: 0,
     dollarsInFlight: 0
   };
-  const getInfectionsByRequestedTime = (data) => {
-    const inDay = (data) => {
+  const getInfectionsByRequestedTime = () => {
+    const inDay = () => {
       const factor = Math.floor(data.timeToElapse / 3);
       impact.infectionsByRequiredTime = impact.currentlyAffected
         * (2 ** factor);
@@ -29,7 +29,7 @@ const covid19ImpactEstimator = (data) => {
         impact, severeImpact
       };
     };
-    const inMonth = (data) => {
+    const inMonth = () => {
       const newTime = data.timeToElapse * 30;
       const factor = Math.floor(newTime / 3);
       impact.infectionsByRequiredTime = impact.currentlyAffected
@@ -40,8 +40,8 @@ const covid19ImpactEstimator = (data) => {
         impact, severeImpact
       };
     };
-    const inWeeks = (data) => {
-      const inWeek = data.timeToElapse * 7
+    const inWeeks = () => {
+      const inWeek = data.timeToElapse * 7;
       const factor = Math.floor(inWeek / 3);
       impact.infectionsByRequiredTime = impact.currentlyAffected
         * (2 ** factor);
@@ -55,22 +55,21 @@ const covid19ImpactEstimator = (data) => {
     const inbrt = (data) => {
       switch (data.periodType) {
         case 'days':
-          return inDay(data);
+          inDay(data);
           break;
         case 'months':
-          return inMonth(data);
+          inMonth(data);
           break;
         case 'weeks':
-          return inWeeks(data);
+          inWeeks(data);
           break;
         default:
           break;
-      };
+      }
     };
-    return inbrt(data)
-
+    return inbrt(data);
   };
-  getInfectionsByRequestedTime(data)
+  getInfectionsByRequestedTime(data);
   return {
     data: input,
     impact,
