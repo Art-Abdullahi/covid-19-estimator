@@ -1,8 +1,8 @@
 /* eslint-disable eol-last */
 const covid19ImpactEstimator = (data) => {
   const input = data;
-  const impactCI = data.reportedCases * 10;
-  const severeImpactCI = data.reportedCases * 50;
+  const impactCurrentlyInfected = data.reportedCases * 10;
+  const severeImpactCurrentlyInfected = data.reportedCases * 50;
   const days = data.timeToElapse;
   const aDIP = data.region.avgDailyIncomePopulation;
   const aDIUSD = data.region.avgDailyIncomeInUSD;
@@ -11,22 +11,22 @@ const covid19ImpactEstimator = (data) => {
   let impactDIF;
   let severeImpactDIF;
   if (data.periodType === 'days') {
-    impactIBRT = impactCI * (2 ** Math.trunc(days / 3));
-    severeImpactIBRT = severeImpactCI * (2 ** Math.trunc(days / 3));
+    impactIBRT = impactCurrentlyInfected * (2 ** Math.trunc(days / 3));
+    severeImpactIBRT = severeImpactCurrentlyInfected * (2 ** Math.trunc(days / 3));
     impactDIF = (impactIBRT * aDIP * aDIUSD) / days;
     severeImpactDIF = (severeImpactIBRT * aDIP * aDIUSD) / days;
   }
   if (data.periodType === 'weeks') {
     const weeksToDays = days * 7;
-    impactIBRT = impactCI * (2 ** Math.trunc(weeksToDays / 3));
-    severeImpactIBRT = severeImpactCI * (2 ** Math.trunc(weeksToDays / 3));
+    impactIBRT = impactCurrentlyInfected * (2 ** Math.trunc(weeksToDays / 3));
+    severeImpactIBRT = severeImpactCurrentlyInfected * (2 ** Math.trunc(weeksToDays / 3));
     impactDIF = (impactIBRT * aDIP * aDIUSD) / weeksToDays;
     severeImpactDIF = (severeImpactIBRT * aDIP * aDIUSD) / weeksToDays;
   }
   if (data.periodType === 'months') {
     const monthsToDays = data.timeToElapse * 30;
-    impactIBRT = impactCI * (2 ** Math.trunc(monthsToDays / 3));
-    severeImpactIBRT = severeImpactCI * (2 ** Math.trunc(monthsToDays / 3));
+    impactIBRT = impactCurrentlyInfected * (2 ** Math.trunc(monthsToDays / 3));
+    severeImpactIBRT = severeImpactCurrentlyInfected * (2 ** Math.trunc(monthsToDays / 3));
     impactDIF = (impactIBRT * aDIP * aDIUSD) / monthsToDays;
     severeImpactDIF = (severeImpactIBRT * aDIP * aDIUSD) / monthsToDays;
   }
@@ -43,7 +43,7 @@ const covid19ImpactEstimator = (data) => {
   return {
     data: input,
     impact: {
-      currentlyInfected: impactCI,
+      currentlyInfected: impactCurrentlyInfected,
       infectionsByRequestedTime: impactIBRT,
       severeCasesByRequestedTime: impactSCBRT,
       hospitalBedsByRequestedTime: impactHBBRT,
@@ -52,7 +52,7 @@ const covid19ImpactEstimator = (data) => {
       dollarsInFlight: impactDIF
     },
     severeImpact: {
-      currentlyInfected: severeImpactCI,
+      currentlyInfected: severeImpactCurrentlyInfected,
       infectionsByRequestedTime: severeImpactIBRT,
       severeCasesByRequestedTime: severeImpactSCBRT,
       hospitalBedsByRequestedTime: severeImpactHBBRT,
